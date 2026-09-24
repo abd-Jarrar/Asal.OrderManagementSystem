@@ -1,1 +1,22 @@
 ﻿@baseUrl=https://localhost:7017
+@customerId=22222222-2222-2222-2222-222222222222
+GET {{baseUrl}}/api/customers/{{customerId}}
+###
+GET {{baseUrl}}/api/customers
+###
+POST {{baseUrl}}/api/customers
+Content-Type:application/json
+{
+  "name": "khaled",
+  "email": "khaled@gmail1.com"
+}
+###
+DELETE {{baseUrl}}/api/customers/{{customerId}}
+
+###
+PUT {{baseUrl}}/api/customers/{{customerId}}
+Content-Type: application/json
+{
+    "name": "omarUpdated",
+    "email": "omar.updated@gmail.com"
+}

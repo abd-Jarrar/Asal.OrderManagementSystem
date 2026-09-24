@@ -14,6 +14,8 @@ namespace Asal.OrderManagementSystem.Api.Respnoses
         }
         public static CustomerResponse FromModel(Customer customer)
         {
+            if (customer is null)
+                throw new ArgumentNullException(nameof(customer), "cannot create a response from null customer");
             var customerResponse=new CustomerResponse()
             {
                 Name= customer.Name,

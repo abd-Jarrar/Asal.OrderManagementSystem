@@ -1,6 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using Asal.OrderManagementSystem.Api.Interfaces;
+using Asal.OrderManagementSystem.Api.Repositories;
 
-app.MapGet("/", () => "Hello World!");
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
+builder.Services.AddSingleton<IProductRepository, ProductRepository>();
+builder.Services.AddControllers();
+var app = builder.Build();
+app.MapControllers();
+
 
 app.Run();

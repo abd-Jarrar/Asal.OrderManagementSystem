@@ -29,10 +29,11 @@ namespace Asal.OrderManagementSystem.Api.Repositories
         public Guid? CreateCustomer(string customerName, string customerEmail)
         {
             if (string.IsNullOrEmpty(customerName))
-                throw new ArgumentNullException("can't create a customer with empty name");
+                throw new ArgumentNullException(nameof(customerName),"Customer name cannot be empty.");
 
-            if(string.IsNullOrEmpty(customerEmail))
-                throw new ArgumentNullException("can't create a customer with empty email");
+            if (string.IsNullOrEmpty(customerEmail))
+                throw new ArgumentNullException(nameof(customerEmail), "Customer Email cannot be empty.");
+
 
             foreach (var customer in _customers)
             {
@@ -79,7 +80,13 @@ namespace Asal.OrderManagementSystem.Api.Repositories
             if(customerName is not null)
                 customer.Name= customerName;
             if(customerEmail is not null)
+            {
+                foreach (var customer1 in _customers)
+                if (customer1.Email == customerEmail)
+                throw new InvalidOperationException("two customers can't have the same email");
+                
                 customer.Email= customerEmail;
+            }
             return true;
 
         }
