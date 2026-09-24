@@ -75,7 +75,7 @@ namespace Asal.OrderManagementSystem.Api.Controllers
 
                 return CreatedAtAction(
                     nameof(GetCustomerById),
-                    new { customerId = customer.Id },
+                    new { customerId = customer?.Id },
                     response);
             }
             catch (ArgumentNullException ex)

@@ -100,14 +100,22 @@ namespace Asal.OrderManagementSystem.Api.Repositories
             var product= GetProductById(productId);
             if (product is null)
                 return false;
+            if (price is not null)
+            {
+                if (price <= 0)
+                    throw new ArgumentException("price should be positive");
+                product.Price = (decimal)price;
+            }
+            if (stockQuantity is not null)
+            {
+                if (stockQuantity < 0)
+                    throw new ArgumentException("stock quantity can't be negative!!");
+                product.stockQuantity = (int)stockQuantity;
+            }
             if (productName is not null)
                 product.Name = productName;
             if(SKU is not null)
                 product.SKU = SKU;
-            if (price is not null && price>0)
-                product.Price = (decimal)price;
-            if (stockQuantity is not null&&stockQuantity>0)
-                product.stockQuantity = (int)stockQuantity;
             if (isActive is not null)
                 product.IsActive = (bool)isActive;
 

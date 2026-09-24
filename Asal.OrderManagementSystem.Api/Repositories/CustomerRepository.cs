@@ -77,16 +77,17 @@ namespace Asal.OrderManagementSystem.Api.Repositories
             var customer= GetCustomerById(customerId);
             if (customer is null)
                 return false;
-            if(customerName is not null)
-                customer.Name= customerName;
-            if(customerEmail is not null)
+            if (customerEmail is not null)
             {
                 foreach (var customer1 in _customers)
-                if (customer1.Email == customerEmail)
-                throw new InvalidOperationException("two customers can't have the same email");
-                
-                customer.Email= customerEmail;
+                    if (customer1.Email == customerEmail)
+                        throw new InvalidOperationException("two customers can't have the same email");
+
+                customer.Email = customerEmail;
             }
+            if (customerName is not null)
+                customer.Name= customerName;
+           
             return true;
 
         }
