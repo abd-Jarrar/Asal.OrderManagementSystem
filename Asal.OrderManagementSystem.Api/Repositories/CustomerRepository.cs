@@ -77,16 +77,22 @@ namespace Asal.OrderManagementSystem.Api.Repositories
             var customer= GetCustomerById(customerId);
             if (customer is null)
                 return false;
+            
             if (customerEmail is not null)
             {
+                if (string.IsNullOrWhiteSpace(customerEmail))
+                    throw new InvalidOperationException("customer email can't be empty");
                 foreach (var customer1 in _customers)
                     if (customer1.Email == customerEmail)
                         throw new InvalidOperationException("two customers can't have the same email");
-
                 customer.Email = customerEmail;
             }
-            if (customerName is not null)
+            if (customerName is not null) {
+
+                if (string.IsNullOrWhiteSpace(customerName))
+                    throw new InvalidOperationException("customer name can't be empty");
                 customer.Name= customerName;
+            }
            
             return true;
 
