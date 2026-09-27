@@ -29,10 +29,10 @@ namespace Asal.OrderManagementSystem.Api.Repositories
         public Guid? CreateCustomer(string customerName, string customerEmail)
         {
             if (string.IsNullOrEmpty(customerName))
-                throw new ArgumentNullException(nameof(customerName),"Customer name cannot be empty.");
+                throw new ArgumentNullException("Customer name cannot be empty.");
 
             if (string.IsNullOrEmpty(customerEmail))
-                throw new ArgumentNullException(nameof(customerEmail), "Customer Email cannot be empty.");
+                throw new ArgumentNullException("Customer Email cannot be empty.");
 
 
             foreach (var customer in _customers)
