@@ -56,9 +56,12 @@ namespace Asal.OrderManagementSystem.Api.Repositories
         public Guid? CreateProduct(string productName, string? SKU, decimal productPrice, int? stockQuantity)
         {
             if (string.IsNullOrEmpty(productName))
-                throw new ArgumentException("Product name cannot be empty.",nameof(productName));
+                throw new ArgumentException("Product name cannot be empty.");
             if (productPrice<=0)
-                throw new ArgumentException("Product price must be greater than zero.",nameof(productPrice));
+                throw new ArgumentException("Product price must be greater than zero.");
+
+            if (stockQuantity < 0)
+                throw new ArgumentException("stock quantity must be greater than  or equal zero.");
 
             var product = new Product
             {
@@ -112,10 +115,17 @@ namespace Asal.OrderManagementSystem.Api.Repositories
                     throw new ArgumentException("stock quantity can't be negative!!");
                 product.stockQuantity = (int)stockQuantity;
             }
-            if (productName is not null)
+            if (productName is not null) {
+                if (string.IsNullOrWhiteSpace(productName))
+                    throw new InvalidOperationException("product name can't be empty");
                 product.Name = productName;
-            if(SKU is not null)
+            }
+            if (SKU is not null)
+            {
+                if(!string.IsNullOrWhiteSpace(SKU))
+                    throw new InvalidOperationException("sku name can't be empty");
                 product.SKU = SKU;
+            }
             if (isActive is not null)
                 product.IsActive = (bool)isActive;
 
